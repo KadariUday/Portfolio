@@ -4,7 +4,7 @@ import { Typewriter } from 'react-simple-typewriter';
 import { ChevronRight, Download, Terminal, Code2 } from 'lucide-react';
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
-import heroImg from '../assets/hero.png';
+import heroImg from '../assets/profile.jpg';
 
 const Hero = () => {
   const [init, setInit] = useState(false);
