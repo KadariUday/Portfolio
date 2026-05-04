@@ -44,7 +44,7 @@ const Contact = () => {
               <div className="w-12 h-12 rounded-full bg-surface border border-white/10 flex items-center justify-center group-hover:border-primary/50 group-hover:bg-primary/10 transition-all">
                 <Mail className="w-5 h-5" />
               </div>
-              <span className="text-lg">kadariuday@example.com</span>
+              <span className="text-lg">kadariudaycl@gmail.com</span>
             </a>
             
             <a href="https://github.com/KadariUday" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 text-gray-300 hover:text-primary transition-colors group">

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Typewriter } from 'react-simple-typewriter';
-import { ChevronRight, Download, Terminal } from 'lucide-react';
+import { ChevronRight, Download, Terminal, Code2 } from 'lucide-react';
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
+import heroImg from '../assets/hero.png';
 
 const Hero = () => {
   const [init, setInit] = useState(false);
@@ -137,9 +138,7 @@ const Hero = () => {
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="w-48 h-48 md:w-64 md:h-64 rounded-full bg-surface border border-white/10 shadow-2xl overflow-hidden flex items-center justify-center relative group">
                 <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 via-secondary/20 to-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <Code2 className="w-24 h-24 text-gray-500 group-hover:text-primary transition-colors duration-500" />
-                {/* To use a real image, replace the Code2 icon with an img tag */}
-                {/* <img src="/profile.jpg" alt="Kadari Uday" className="w-full h-full object-cover" /> */}
+                <img src={heroImg} alt="Kadari Uday" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
               </div>
             </div>
           </div>
@@ -149,7 +148,5 @@ const Hero = () => {
   );
 };
 
-// Also adding a fallback Code2 icon if not imported above
-import { Code2 } from 'lucide-react';
 
 export default Hero;
