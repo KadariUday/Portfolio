@@ -90,7 +90,7 @@ const Hero = () => {
             <span className="text-gradient">Kadari Uday</span>
           </h1>
           
-          <h2 className="text-xl md:text-2xl font-medium text-gray-400 h-8">
+          <h2 className="text-xl md:text-2xl font-medium text-gray-400 min-h-[3rem] md:min-h-[2.5rem]">
             <Typewriter
               words={['B.Tech Engineering Student', 'Full-Stack Developer', 'AI Enthusiast']}
               loop={true}

@@ -34,7 +34,7 @@ const About = () => {
           <h2 className="text-3xl md:text-5xl font-bold mb-6">
             About <span className="text-gradient">Me</span>
           </h2>
-          <div className="flex items-center justify-center gap-2 text-gray-400 mb-8 font-mono bg-white/5 w-max mx-auto px-4 py-2 rounded-full border border-white/10">
+          <div className="inline-flex items-center justify-center gap-2 text-gray-400 mb-8 font-mono bg-white/5 mx-auto px-4 py-2 rounded-full border border-white/10">
             <MapPin className="w-4 h-4 text-primary" />
             <span>Based in Hyderabad, India</span>
           </div>
