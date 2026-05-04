@@ -7,12 +7,40 @@ const Contact = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [status, setStatus] = useState('');
 
-  const handleSubmit = (e) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Placeholder for form submission logic
-    setStatus('Message sent successfully!');
-    setTimeout(() => setStatus(''), 3000);
-    setFormData({ name: '', email: '', message: '' });
+    setIsSubmitting(true);
+    setStatus('');
+    
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/23951A66N4@iare.ac.in", {
+        method: "POST",
+        headers: { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            message: formData.message,
+            _subject: `New Portfolio Contact from ${formData.name}`
+        })
+      });
+      
+      if (response.ok) {
+        setStatus('Message sent successfully!');
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        setStatus('Oops! Something went wrong.');
+      }
+    } catch (error) {
+      setStatus('Oops! Something went wrong.');
+    } finally {
+      setIsSubmitting(false);
+      setTimeout(() => setStatus(''), 5000);
+    }
   };
 
   const handleChange = (e) => {
@@ -40,7 +68,7 @@ const Contact = () => {
           </p>
 
           <div className="space-y-6">
-            <a href="mailto:kadariuday@example.com" className="flex items-center gap-4 text-gray-300 hover:text-primary transition-colors group">
+            <a href="mailto:23951A66N4@iare.ac.in" className="flex items-center gap-4 text-gray-300 hover:text-primary transition-colors group">
               <div className="w-12 h-12 rounded-full bg-surface border border-white/10 flex items-center justify-center group-hover:border-primary/50 group-hover:bg-primary/10 transition-all">
                 <Mail className="w-5 h-5" />
               </div>
@@ -115,10 +143,11 @@ const Contact = () => {
             
             <button
               type="submit"
-              className="w-full py-4 rounded-xl bg-primary text-white font-medium hover:bg-primary/90 transition-all flex items-center justify-center gap-2 group"
+              disabled={isSubmitting}
+              className="w-full py-4 rounded-xl bg-primary text-white font-medium hover:bg-primary/90 transition-all flex items-center justify-center gap-2 group disabled:opacity-70 disabled:cursor-not-allowed"
             >
-              <span>Send Message</span>
-              <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+              <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
+              {!isSubmitting && <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />}
             </button>
             
             {status && (
