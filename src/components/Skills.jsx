@@ -18,6 +18,10 @@ const Skills = () => {
     {
       title: "Tools & Deployment",
       skills: ["Git", "GitHub", "Vercel", "Render", "Postman"]
+    },
+    {
+      title: "Vibe Coding",
+      skills: ["Bolt", "Lovable", "Replit", "Z0", "v0", "Windsurf", "Antigravity", "Cursor", "Claude Code", "Gemini CLI"]
     }
   ];
 
