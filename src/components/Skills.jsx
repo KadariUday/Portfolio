@@ -22,6 +22,10 @@ const Skills = () => {
     {
       title: "Vibe Coding",
       skills: ["Bolt", "Lovable", "Replit", "Z0", "v0", "Windsurf", "Antigravity", "Cursor", "Claude Code", "Gemini CLI"]
+    },
+    {
+      title: "Gen AI Tools",
+      skills: ["ChatGPT", "Gemini", "Perplexity", "Sora", "GitHub Copilot"]
     }
   ];
 
@@ -44,7 +48,7 @@ const Skills = () => {
           <p className="text-gray-400">Tools and technologies I use to build things.</p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {skillCategories.map((category, idx) => (
             <motion.div
               key={idx}
