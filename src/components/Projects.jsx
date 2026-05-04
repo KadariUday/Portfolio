@@ -10,7 +10,7 @@ const Projects = () => {
       description: "A disease prediction chatbot utilizing specialized medical datasets. Integrated an NLP pipeline to process symptoms and offer diagnostic suggestions accurately.",
       tech: ["React", "FastAPI", "NLP", "Scikit-Learn"],
       icon: <Activity className="w-8 h-8 text-primary" />,
-      github: "#",
+      github: "https://github.com/KadariUday/Aura-Health-AI---Disease-Prediction-Chatbot.git",
       demo: "#"
     },
     {
@@ -18,16 +18,16 @@ const Projects = () => {
       description: "A full-stack application featuring AI-powered weather analysis to provide intelligent insights, localized forecasts, and dynamic visual reporting.",
       tech: ["React", "Node.js", "AI APIs", "Tailwind CSS"],
       icon: <CloudSun className="w-8 h-8 text-secondary" />,
-      github: "#",
-      demo: "#"
+      github: "https://github.com/KadariUday/Lumina-Weather-AI",
+      demo: "https://lumina-weather-ai.vercel.app/"
     },
     {
       title: "Samvidha Attendance",
       description: "A robust, deployed full-stack attendance management website optimized for fast backend logins and seamless real-time tracking for academic environments.",
       tech: ["React", "Express", "MongoDB", "JWT"],
       icon: <Users className="w-8 h-8 text-accent" />,
-      github: "#",
-      demo: "#"
+      github: "https://github.com/KadariUday/Samvidha_Attendance.git",
+      demo: "https://samvidha-attendance-98tm.vercel.app/"
     },
     {
       title: "Smart AI Video Summarizer",
@@ -90,24 +90,28 @@ const Projects = () => {
               </div>
               
               <div className="flex items-center gap-4 mt-auto">
-                <a 
-                  href={project.github} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="p-2 rounded-full bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white transition-colors"
-                  aria-label="GitHub Repository"
-                >
-                  <FaGithub className="w-5 h-5" />
-                </a>
-                <a 
-                  href={project.demo} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="p-2 rounded-full bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white transition-colors"
-                  aria-label="Live Demo"
-                >
-                  <ExternalLink className="w-5 h-5" />
-                </a>
+                {project.github !== "#" && (
+                  <a 
+                    href={project.github} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="p-2 rounded-full bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white transition-colors"
+                    aria-label="GitHub Repository"
+                  >
+                    <FaGithub className="w-5 h-5" />
+                  </a>
+                )}
+                {project.demo !== "#" && (
+                  <a 
+                    href={project.demo} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="p-2 rounded-full bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white transition-colors"
+                    aria-label="Live Demo"
+                  >
+                    <ExternalLink className="w-5 h-5" />
+                  </a>
+                )}
               </div>
             </motion.div>
           ))}
