@@ -10,7 +10,7 @@ const Projects = () => {
       description: "A disease prediction chatbot utilizing specialized medical datasets. Integrated an NLP pipeline to process symptoms and offer diagnostic suggestions accurately.",
       tech: ["React", "FastAPI", "NLP", "Scikit-Learn"],
       icon: <Activity className="w-8 h-8 text-primary" />,
-      github: "https://github.com/KadariUday/Aura-Health-AI---Disease-Prediction-Chatbot.git",
+      github: "https://github.com/KadariUday/Aura-Health-Chatbot.git",
       demo: "#"
     },
     {
