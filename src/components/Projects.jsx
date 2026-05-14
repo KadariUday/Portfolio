@@ -6,12 +6,12 @@ import { FaGithub } from 'react-icons/fa';
 const Projects = () => {
   const projects = [
     {
-      title: "Aura Health AI",
+      title: "Aura Health AI Chatbot",
       description: "A disease prediction chatbot utilizing specialized medical datasets. Integrated an NLP pipeline to process symptoms and offer diagnostic suggestions accurately.",
       tech: ["React", "FastAPI", "NLP", "Scikit-Learn"],
       icon: <Activity className="w-8 h-8 text-primary" />,
       github: "https://github.com/KadariUday/Aura-Health-Chatbot.git",
-      demo: "#"
+      demo: "https://aura-health-chatbot.vercel.app/"
     },
     {
       title: "Lumina Weather AI",
