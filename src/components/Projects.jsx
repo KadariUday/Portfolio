@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink, Activity, CloudSun, Users, Video } from 'lucide-react';
+import { ExternalLink, Activity, CloudSun, Users, Compass } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa';
 
 const Projects = () => {
@@ -30,12 +30,12 @@ const Projects = () => {
       demo: "https://samvidha-attendance-98tm.vercel.app/"
     },
     {
-      title: "Smart AI Video Summarizer",
-      description: "An NLP-driven tool designed to automate video content analysis, transcribing audio streams and generating concise, structured text summaries instantly.",
-      tech: ["Python", "Transformers", "React", "Video Processing"],
-      icon: <Video className="w-8 h-8 text-primary" />,
-      github: "#",
-      demo: "#"
+      title: "CareerForge-AI",
+      description: "An AI-driven career guidance platform offering personalized college predictions, intelligent resume analysis, and comprehensive educational insights.",
+      tech: ["React", "FastAPI", "MongoDB", "Tailwind CSS"],
+      icon: <Compass className="w-8 h-8 text-primary" />,
+      github: "https://github.com/KadariUday/CareerForge-AI.git",
+      demo: "https://career-forge-ai-orpin.vercel.app/"
     }
   ];
 
