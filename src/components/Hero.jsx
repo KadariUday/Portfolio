@@ -130,7 +130,7 @@ const Hero = () => {
             transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
             className="relative w-56 h-56 sm:w-64 sm:h-64 lg:w-72 lg:h-72 xl:w-80 xl:h-80 flex items-center justify-center group lg:translate-x-12 xl:translate-x-20"
           >
-            <audio ref={audioRef} src="/bg-music.mp3" loop />
+            <audio ref={audioRef} src="/bg-music.mp3" autoPlay loop />
             
             {/* Outer dashed ring (purple/secondary theme) */}
             <div className={`absolute inset-[-35%] rounded-full border-[2px] border-dashed transition-all duration-500 ${isPlaying ? 'animate-[spin_10s_linear_infinite] scale-110 border-secondary/80 shadow-[0_0_40px_rgba(139,92,246,0.4)]' : 'border-secondary/30 animate-[spin_20s_linear_infinite]'}`}></div>
