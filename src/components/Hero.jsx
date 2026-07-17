@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { ChevronRight, Volume2, VolumeX } from 'lucide-react';
 import heroImg from '../assets/profile.jpg';
 
-const Hero = () => {
+const Hero = ({ hasEntered }) => {
   const { scrollY } = useScroll();
   const y1 = useTransform(scrollY, [0, 1000], [0, 200]);
   const opacity = useTransform(scrollY, [0, 500], [1, 0]);
@@ -12,31 +12,12 @@ const Hero = () => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
-    const attemptPlay = async () => {
-      if (audioRef.current) {
-        try {
-          // Attempt pure autoplay
-          await audioRef.current.play();
-          setIsPlaying(true);
-        } catch (error) {
-          // Fallback: Start immediately on the very first interaction anywhere on the page
-          const handleFirstInteraction = () => {
-            if (audioRef.current && audioRef.current.paused) {
-              audioRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
-              ['click', 'scroll', 'keydown', 'touchstart'].forEach(event => {
-                document.removeEventListener(event, handleFirstInteraction);
-              });
-            }
-          };
-          
-          ['click', 'scroll', 'keydown', 'touchstart'].forEach(event => {
-            document.addEventListener(event, handleFirstInteraction, { once: true });
-          });
-        }
-      }
-    };
-    attemptPlay();
-  }, []);
+    if (hasEntered && audioRef.current && !isPlaying) {
+      audioRef.current.play().then(() => {
+        setIsPlaying(true);
+      }).catch((e) => console.log("Audio play failed:", e));
+    }
+  }, [hasEntered]);
 
   const toggleAudio = () => {
     // User requested only a manual OFF option
@@ -55,6 +36,7 @@ const Hero = () => {
           loop 
           muted 
           playsInline
+          onEnded={(e) => { e.target.play().catch(()=>{}); }}
           className="absolute inset-0 w-full h-full object-cover opacity-20"
         >
           <source src="/hero-bg.mp4" type="video/mp4" />
@@ -129,7 +111,13 @@ const Hero = () => {
             transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
             className="relative w-56 h-56 sm:w-64 sm:h-64 lg:w-72 lg:h-72 xl:w-80 xl:h-80 flex items-center justify-center group lg:translate-x-12 xl:translate-x-20"
           >
-            <audio ref={audioRef} src="/bg-music.mp3" autoPlay loop />
+            <audio 
+              ref={audioRef} 
+              src="/bg-music.mp3" 
+              autoPlay 
+              loop 
+              onEnded={(e) => { e.target.play().catch(()=>{}); }}
+            />
             
             {/* Outer dashed ring (purple/secondary theme) */}
             <div className={`absolute inset-[-35%] rounded-full border-[2px] border-dashed transition-all duration-500 ${isPlaying ? 'animate-[spin_10s_linear_infinite] scale-110 border-secondary/80 shadow-[0_0_40px_rgba(139,92,246,0.4)]' : 'border-secondary/30 animate-[spin_20s_linear_infinite]'}`}></div>
