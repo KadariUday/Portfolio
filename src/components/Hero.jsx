@@ -15,10 +15,23 @@ const Hero = () => {
     const attemptPlay = async () => {
       if (audioRef.current) {
         try {
+          // Attempt pure autoplay
           await audioRef.current.play();
           setIsPlaying(true);
         } catch (error) {
-          console.warn("Browser blocked autoplay. User interaction required.");
+          // Fallback: Start immediately on the very first interaction anywhere on the page
+          const handleFirstInteraction = () => {
+            if (audioRef.current && audioRef.current.paused) {
+              audioRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
+              ['click', 'scroll', 'keydown', 'touchstart'].forEach(event => {
+                document.removeEventListener(event, handleFirstInteraction);
+              });
+            }
+          };
+          
+          ['click', 'scroll', 'keydown', 'touchstart'].forEach(event => {
+            document.addEventListener(event, handleFirstInteraction, { once: true });
+          });
         }
       }
     };
