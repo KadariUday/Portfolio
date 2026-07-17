@@ -30,7 +30,7 @@ const Skills = () => {
   ];
 
   return (
-    <section id="skills" className="py-24 bg-surface/50 border-y border-white/5 relative overflow-hidden">
+    <section id="skills" className="py-16 lg:py-24 bg-surface/50 border-y border-white/5 relative overflow-hidden">
       {/* Decorative gradient */}
       <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-secondary/10 rounded-full mix-blend-screen filter blur-[120px] -translate-y-1/2 pointer-events-none"></div>
 
@@ -40,7 +40,7 @@ const Skills = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-10 lg:mb-16"
         >
           <h2 className="text-3xl md:text-5xl font-bold mb-4">
             Technical <span className="text-gradient">Arsenal</span>
@@ -48,7 +48,7 @@ const Skills = () => {
           <p className="text-gray-400">Tools and technologies I use to build things.</p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8">
           {skillCategories.map((category, idx) => (
             <motion.div
               key={idx}

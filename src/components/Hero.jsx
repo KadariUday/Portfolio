@@ -28,7 +28,7 @@ const Hero = ({ hasEntered }) => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-32 pb-20 lg:py-0 overflow-hidden" id="home">
+    <section className="relative min-h-screen flex items-center justify-center pt-24 pb-12 lg:py-0 overflow-hidden" id="home">
       {/* Cinematic Video Background */}
       <div className="absolute inset-0 z-0 bg-background overflow-hidden">
         <video 
@@ -70,7 +70,7 @@ const Hero = ({ hasEntered }) => {
             <span>Hello, World!</span>
           </motion.div>
           
-          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tighter leading-[1.1]">
+          <h1 className="text-3xl sm:text-5xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tighter leading-[1.1]">
             <span className="block text-white mb-2">Hi, I'm</span>
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#A855F7] via-[#3B82F6] to-[#2DD4BF] drop-shadow-lg">
               Kadari Uday
@@ -104,12 +104,12 @@ const Hero = ({ hasEntered }) => {
         </motion.div>
 
         {/* Profile Image Presentation on Right Side */}
-        <div className="relative h-[350px] sm:h-[400px] lg:h-[600px] w-full flex items-center justify-center lg:justify-end mt-8 lg:mt-0">
+        <div className="relative h-[250px] sm:h-[400px] lg:h-[600px] w-full flex items-center justify-center lg:justify-end mt-8 lg:mt-0">
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-56 h-56 sm:w-64 sm:h-64 lg:w-72 lg:h-72 xl:w-80 xl:h-80 flex items-center justify-center group lg:translate-x-12 xl:translate-x-20"
+            className="relative w-48 h-48 sm:w-64 sm:h-64 lg:w-72 lg:h-72 xl:w-80 xl:h-80 flex items-center justify-center group lg:translate-x-12 xl:translate-x-20"
           >
             <audio 
               ref={audioRef} 

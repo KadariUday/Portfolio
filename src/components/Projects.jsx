@@ -79,12 +79,12 @@ const Projects = () => {
   }, []);
 
   return (
-    <section id="projects" className="py-24 relative overflow-hidden">
+    <section id="projects" className="py-16 lg:py-24 relative overflow-hidden">
       {/* Background ambient glow */}
       <div className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/5 via-background to-background"></div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div ref={headerRef} className="text-center mb-20">
+        <div ref={headerRef} className="text-center mb-12 lg:mb-20">
           <h2 className="text-4xl md:text-6xl font-bold mb-6 tracking-tighter">
             Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-cyan-400 to-secondary drop-shadow-[0_0_15px_rgba(0,240,255,0.5)]">Projects</span>
           </h2>
