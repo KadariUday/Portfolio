@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { ChevronRight, Volume2, VolumeX } from 'lucide-react';
 import heroImg from '../assets/profile.jpg';
 
@@ -18,18 +18,7 @@ const Hero = () => {
           await audioRef.current.play();
           setIsPlaying(true);
         } catch (error) {
-          // Browser blocked autoplay. Wait for user interaction.
-          const handleFirstInteraction = () => {
-            if (audioRef.current && audioRef.current.paused) {
-              audioRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
-              document.removeEventListener('click', handleFirstInteraction);
-              document.removeEventListener('scroll', handleFirstInteraction);
-              document.removeEventListener('keydown', handleFirstInteraction);
-            }
-          };
-          document.addEventListener('click', handleFirstInteraction);
-          document.addEventListener('scroll', handleFirstInteraction);
-          document.addEventListener('keydown', handleFirstInteraction);
+          console.warn("Browser blocked autoplay. User interaction required.");
         }
       }
     };
@@ -37,13 +26,10 @@ const Hero = () => {
   }, []);
 
   const toggleAudio = () => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause();
-      } else {
-        audioRef.current.play();
-      }
-      setIsPlaying(!isPlaying);
+    // User requested only a manual OFF option
+    if (audioRef.current && isPlaying) {
+      audioRef.current.pause();
+      setIsPlaying(false);
     }
   };
 
@@ -162,18 +148,22 @@ const Hero = () => {
 
       </motion.div>
 
-      {/* Audio Toggle Button */}
-      <button
-        onClick={toggleAudio}
-        className="absolute bottom-8 right-8 z-50 p-3 rounded-full hover:bg-white/10 border border-white/10 bg-white/5 backdrop-blur-md transition-all flex items-center justify-center hover:scale-110 shadow-lg"
-        aria-label="Toggle Portfolio Audio"
-      >
-        {isPlaying ? (
-          <Volume2 className="w-6 h-6 text-[#A855F7]" />
-        ) : (
-          <VolumeX className="w-6 h-6 text-gray-400" />
+      {/* Audio Mute Button (Only visible while playing) */}
+      <AnimatePresence>
+        {isPlaying && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            onClick={toggleAudio}
+            className="absolute bottom-8 right-8 z-50 p-3 rounded-full hover:bg-white/10 border border-white/10 bg-white/5 backdrop-blur-md transition-all flex items-center justify-center hover:scale-110 shadow-lg group"
+            title="Mute Audio"
+          >
+            <Volume2 className="w-6 h-6 text-[#A855F7] group-hover:hidden" />
+            <VolumeX className="w-6 h-6 text-gray-400 hidden group-hover:block" />
+          </motion.button>
         )}
-      </button>
+      </AnimatePresence>
     </section>
   );
 };
