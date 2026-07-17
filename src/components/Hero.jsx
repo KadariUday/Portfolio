@@ -1,152 +1,181 @@
-import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import { Typewriter } from 'react-simple-typewriter';
-import { ChevronRight, Download, Terminal, Code2 } from 'lucide-react';
-import Particles, { initParticlesEngine } from "@tsparticles/react";
-import { loadSlim } from "@tsparticles/slim";
+import React, { useState, useRef, useEffect } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { ChevronRight, Volume2, VolumeX } from 'lucide-react';
 import heroImg from '../assets/profile.jpg';
 
 const Hero = () => {
-  const [init, setInit] = useState(false);
+  const { scrollY } = useScroll();
+  const y1 = useTransform(scrollY, [0, 1000], [0, 200]);
+  const opacity = useTransform(scrollY, [0, 500], [1, 0]);
+
+  const audioRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
-    initParticlesEngine(async (engine) => {
-      await loadSlim(engine);
-    }).then(() => {
-      setInit(true);
-    });
+    const attemptPlay = async () => {
+      if (audioRef.current) {
+        try {
+          await audioRef.current.play();
+          setIsPlaying(true);
+        } catch (error) {
+          // Browser blocked autoplay. Wait for user interaction.
+          const handleFirstInteraction = () => {
+            if (audioRef.current && audioRef.current.paused) {
+              audioRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
+              document.removeEventListener('click', handleFirstInteraction);
+              document.removeEventListener('scroll', handleFirstInteraction);
+              document.removeEventListener('keydown', handleFirstInteraction);
+            }
+          };
+          document.addEventListener('click', handleFirstInteraction);
+          document.addEventListener('scroll', handleFirstInteraction);
+          document.addEventListener('keydown', handleFirstInteraction);
+        }
+      }
+    };
+    attemptPlay();
   }, []);
 
+  const toggleAudio = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden" id="home">
-      {/* Background Particles */}
-      {init && (
-        <Particles
-          id="tsparticles"
-          className="absolute inset-0 z-0"
-          options={{
-            background: {
-              color: { value: "transparent" },
-            },
-            fpsLimit: 60,
-            interactivity: {
-              events: {
-                onHover: { enable: true, mode: "repulse" },
-                resize: true,
-              },
-              modes: {
-                repulse: { distance: 100, duration: 0.4 },
-              },
-            },
-            particles: {
-              color: { value: ["#8b5cf6", "#3b82f6", "#10b981"] },
-              links: {
-                color: "#4b5563",
-                distance: 150,
-                enable: true,
-                opacity: 0.2,
-                width: 1,
-              },
-              move: {
-                direction: "none",
-                enable: true,
-                outModes: { default: "bounce" },
-                random: false,
-                speed: 1,
-                straight: false,
-              },
-              number: {
-                density: { enable: true, area: 800 },
-                value: 40,
-              },
-              opacity: { value: 0.3 },
-              shape: { type: "circle" },
-              size: { value: { min: 1, max: 3 } },
-            },
-            detectRetina: true,
-          }}
-        />
-      )}
-
-      {/* Animated Gradient Blobs */}
-      <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-primary/30 rounded-full mix-blend-screen filter blur-[100px] animate-blob z-0"></div>
-      <div className="absolute top-1/3 right-1/4 w-72 h-72 bg-secondary/30 rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-2000 z-0"></div>
-      <div className="absolute bottom-1/4 left-1/2 w-72 h-72 bg-accent/30 rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-4000 z-0"></div>
-
-      <div className="relative z-10 max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-12 items-center">
-        <motion.div 
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="space-y-6"
+    <section className="relative min-h-screen flex items-center justify-center pt-32 pb-20 lg:py-0 overflow-hidden" id="home">
+      {/* Cinematic Video Background */}
+      <div className="absolute inset-0 z-0 bg-background overflow-hidden">
+        <video 
+          autoPlay 
+          loop 
+          muted 
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover opacity-20"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-sm font-mono text-gray-300">
-            <Terminal className="w-4 h-4 text-primary" />
+          <source src="/hero-bg.mp4" type="video/mp4" />
+        </video>
+        {/* Ambient glow behind everything */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/20 via-background/60 to-background"></div>
+        {/* Fallback gradient if video is missing */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background/50 to-secondary/10"></div>
+        {/* Animated Gradient Overlays for extra depth */}
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full mix-blend-screen filter blur-[120px] animate-blob"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/20 rounded-full mix-blend-screen filter blur-[120px] animate-blob animation-delay-2000"></div>
+      </div>
+
+      <motion.div 
+        style={{ y: y1, opacity }}
+        className="relative z-10 w-full max-w-7xl mx-auto px-6 grid lg:grid-cols-[40%_60%] gap-8 lg:gap-12 items-center"
+      >
+        <motion.div 
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+          className="space-y-8"
+        >
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm text-sm font-mono text-gray-200"
+          >
+            <span className="text-[#A855F7] font-bold">{`>_`}</span>
             <span>Hello, World!</span>
-          </div>
+          </motion.div>
           
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
-            Hi, I'm <br />
-            <span className="text-gradient">Kadari Uday</span>
+          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tighter leading-[1.1]">
+            <span className="block text-white mb-2">Hi, I'm</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#A855F7] via-[#3B82F6] to-[#2DD4BF] drop-shadow-lg">
+              Kadari Uday
+            </span>
           </h1>
           
-          <h2 className="text-xl md:text-2xl font-medium text-gray-400 min-h-[3rem] md:min-h-[2.5rem]">
-            <Typewriter
-              words={['B.Tech Engineering Student', 'Full-Stack Developer', 'AI Enthusiast']}
-              loop={true}
-              cursor
-              cursorStyle='_'
-              typeSpeed={70}
-              deleteSpeed={50}
-              delaySpeed={2000}
-            />
-          </h2>
+          <div className="flex flex-col space-y-4 pt-2">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-medium text-gray-300 tracking-wide flex items-center">
+              B.Tech Engineering Student<span className="animate-pulse opacity-50">_</span>
+            </h2>
+            <p className="text-gray-400 text-lg max-w-xl leading-relaxed">
+              Bridging the gap between traditional full-stack development and advanced AI integrations to build scalable, intelligent web applications.
+            </p>
+          </div>
           
-          <p className="text-gray-400 max-w-lg leading-relaxed text-lg">
-            Bridging the gap between traditional full-stack development and advanced AI integrations to build scalable, intelligent web applications.
-          </p>
-          
-          <div className="flex flex-wrap items-center gap-4 pt-4">
+          <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-4 pt-6 w-full sm:w-auto">
             <a 
               href="#projects" 
-              className="px-6 py-3 rounded-lg bg-primary text-white font-medium hover:bg-primary/90 transition-all flex items-center gap-2 group"
+              className="w-full sm:w-auto justify-center px-8 py-3.5 rounded-xl bg-[#8B5CF6] text-white font-medium hover:bg-[#7C3AED] transition-all flex items-center gap-2 group shadow-[0_0_20px_rgba(139,92,246,0.4)] hover:shadow-[0_0_30px_rgba(139,92,246,0.6)]"
             >
               View My Work
-              <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </a>
             <a 
               href="#contact" 
-              className="px-6 py-3 rounded-lg bg-white/5 text-white font-medium hover:bg-white/10 border border-white/10 transition-all flex items-center gap-2"
+              className="w-full sm:w-auto justify-center px-8 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition-all flex items-center gap-2"
             >
               Contact Me
             </a>
           </div>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="relative lg:h-[500px] flex justify-center items-center"
-        >
-          {/* Abstract Tech Graphic / Profile Placeholder */}
-          <div className="relative w-72 h-72 md:w-96 md:h-96">
-            <div className="absolute inset-0 rounded-full border-2 border-primary/20 border-dashed animate-[spin_10s_linear_infinite]"></div>
-            <div className="absolute inset-4 rounded-full border-2 border-secondary/30 border-dotted animate-[spin_15s_linear_infinite_reverse]"></div>
-            <div className="absolute inset-8 rounded-full border border-accent/40 animate-[spin_20s_linear_infinite]"></div>
+        {/* Profile Image Presentation on Right Side */}
+        <div className="relative h-[350px] sm:h-[400px] lg:h-[600px] w-full flex items-center justify-center lg:justify-end mt-8 lg:mt-0">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="relative w-56 h-56 sm:w-64 sm:h-64 lg:w-72 lg:h-72 xl:w-80 xl:h-80 flex items-center justify-center group lg:translate-x-12 xl:translate-x-20"
+          >
+            <audio ref={audioRef} src="/bg-music.mp3" loop />
             
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-48 h-48 md:w-64 md:h-64 rounded-full bg-surface border border-white/10 shadow-2xl overflow-hidden flex items-center justify-center relative group">
-                <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 via-secondary/20 to-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <img src={heroImg} alt="Kadari Uday" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-              </div>
+            {/* Outer dashed ring (purple/secondary theme) */}
+            <div className={`absolute inset-[-35%] rounded-full border-[2px] border-dashed transition-all duration-500 ${isPlaying ? 'animate-[spin_10s_linear_infinite] scale-110 border-secondary/80 shadow-[0_0_40px_rgba(139,92,246,0.4)]' : 'border-secondary/30 animate-[spin_20s_linear_infinite]'}`}></div>
+            
+            {/* Middle dotted ring (cyan/primary theme) */}
+            <div className={`absolute inset-[-20%] rounded-full border-[2px] border-dotted transition-all duration-500 ${isPlaying ? 'animate-[spin_8s_linear_infinite_reverse] scale-110 border-primary shadow-[0_0_30px_rgba(0,240,255,0.5)]' : 'border-primary/50 animate-[spin_15s_linear_infinite_reverse]'}`}></div>
+            
+            {/* Inner solid ring with glow */}
+            <div className={`absolute inset-[-5%] rounded-full border transition-all duration-500 ${isPlaying ? 'border-primary shadow-[0_0_60px_rgba(0,240,255,0.8)] scale-110 animate-pulse' : 'border-primary/40 shadow-[0_0_30px_rgba(0,240,255,0.3)]'}`}></div>
+
+            {/* Extra Audio Pulsing Rings (Only visible when playing) */}
+            {isPlaying && (
+              <>
+                <div className="absolute inset-[-40%] rounded-full border border-primary/30 animate-ping pointer-events-none" style={{ animationDuration: '2s' }}></div>
+                <div className="absolute inset-[-50%] rounded-full border border-secondary/30 animate-ping pointer-events-none" style={{ animationDuration: '3s', animationDelay: '1s' }}></div>
+              </>
+            )}
+
+            {/* Profile Image Container */}
+            <div className="relative w-full h-full rounded-full overflow-hidden bg-white z-10 border-2 border-background shadow-2xl">
+              <img 
+                src={heroImg} 
+                alt="Kadari Uday" 
+                className={`absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 ${isPlaying ? 'scale-110' : 'group-hover:scale-105'}`}
+              />
             </div>
-          </div>
-        </motion.div>
-      </div>
+          </motion.div>
+        </div>
+
+      </motion.div>
+
+      {/* Audio Toggle Button */}
+      <button
+        onClick={toggleAudio}
+        className="absolute bottom-8 right-8 z-50 p-3 rounded-full hover:bg-white/10 border border-white/10 bg-white/5 backdrop-blur-md transition-all flex items-center justify-center hover:scale-110 shadow-lg"
+        aria-label="Toggle Portfolio Audio"
+      >
+        {isPlaying ? (
+          <Volume2 className="w-6 h-6 text-[#A855F7]" />
+        ) : (
+          <VolumeX className="w-6 h-6 text-gray-400" />
+        )}
+      </button>
     </section>
   );
 };
-
 
 export default Hero;
