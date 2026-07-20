@@ -149,6 +149,24 @@ const Hero = ({ hasEntered }) => {
 
       </motion.div>
 
+      {/* Scroll Down Indicator */}
+      <motion.div 
+        initial={{ opacity: 0, y: -15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.2, duration: 0.8 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center gap-3 cursor-pointer group animate-bounce"
+        onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
+      >
+        <div className="text-xs font-mono text-gray-200 tracking-[0.3em] uppercase group-hover:text-primary transition-colors drop-shadow-md">Scroll</div>
+        <div className="w-8 h-14 rounded-full border-2 border-white/40 flex justify-center p-2 group-hover:border-primary transition-all bg-background/40 backdrop-blur-md shadow-[0_0_15px_rgba(255,255,255,0.1)] group-hover:shadow-[0_0_20px_rgba(0,240,255,0.4)]">
+          <motion.div 
+            animate={{ y: [0, 16, 0], opacity: [1, 0.3, 1] }}
+            transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+            className="w-1.5 h-3 bg-primary rounded-full shadow-[0_0_8px_rgba(0,240,255,0.8)]"
+          />
+        </div>
+      </motion.div>
+
       {/* Audio Mute Button (Only visible while playing) */}
       <AnimatePresence>
         {isPlaying && (
