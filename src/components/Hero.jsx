@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import { ChevronRight, Volume2, VolumeX } from 'lucide-react';
+import { ChevronRight, Volume2, VolumeX, Rocket } from 'lucide-react';
 import heroImg from '../assets/profile.jpg';
 
 const Hero = ({ hasEntered }) => {
@@ -64,10 +64,20 @@ const Hero = ({ hasEntered }) => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm text-sm font-mono text-gray-200"
+            className="flex flex-wrap items-center gap-3"
           >
-            <span className="text-[#A855F7] font-bold">{`>_`}</span>
-            <span>Hello, World!</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm text-sm font-mono text-gray-200">
+              <span className="text-[#A855F7] font-bold">{`>_`}</span>
+              <span>Hello, World!</span>
+            </div>
+
+            <a 
+              href="#vision-verse"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-secondary/40 bg-secondary/10 hover:bg-secondary/20 transition-all backdrop-blur-sm text-sm font-mono text-gray-200 group shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:scale-105"
+            >
+              <Rocket className="w-4 h-4 text-secondary group-hover:-translate-y-0.5 transition-transform" />
+              <span>Founder @ <strong className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Vision Verse 24</strong></span>
+            </a>
           </motion.div>
           
           <h1 className="text-3xl sm:text-5xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tighter leading-[1.1]">
@@ -78,25 +88,35 @@ const Hero = ({ hasEntered }) => {
           </h1>
           
           <div className="flex flex-col space-y-4 pt-2">
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-medium text-gray-300 tracking-wide flex items-center">
-              B.Tech Engineering Student<span className="animate-pulse opacity-50">_</span>
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-medium text-gray-300 tracking-wide flex items-center gap-2 flex-wrap">
+              <span>Founder @ Vision Verse 24</span>
+              <span className="text-primary">•</span>
+              <span>B.Tech Engineering Student</span>
+              <span className="animate-pulse opacity-50">_</span>
             </h2>
             <p className="text-gray-400 text-lg max-w-xl leading-relaxed">
-              Bridging the gap between traditional full-stack development and advanced AI integrations to build scalable, intelligent web applications.
+              Bridging the gap between full-stack web engineering, smart AI integrations, and student project mentorship to build intelligent digital solutions.
             </p>
           </div>
           
           <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-4 pt-6 w-full sm:w-auto">
             <a 
-              href="#projects" 
-              className="w-full sm:w-auto justify-center px-8 py-3.5 rounded-xl bg-[#8B5CF6] text-white font-medium hover:bg-[#7C3AED] transition-all flex items-center gap-2 group shadow-[0_0_20px_rgba(139,92,246,0.4)] hover:shadow-[0_0_30px_rgba(139,92,246,0.6)]"
+              href="#vision-verse" 
+              className="w-full sm:w-auto justify-center px-8 py-3.5 rounded-xl bg-gradient-to-r from-[#8B5CF6] via-[#A855F7] to-[#00f0ff] text-white font-medium hover:opacity-90 transition-all flex items-center gap-2 group shadow-[0_0_25px_rgba(139,92,246,0.4)] hover:shadow-[0_0_35px_rgba(0,240,255,0.6)]"
             >
-              View My Work
+              <Rocket className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+              Explore Vision Verse
+            </a>
+            <a 
+              href="#projects" 
+              className="w-full sm:w-auto justify-center px-8 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition-all flex items-center gap-2 group"
+            >
+              View Projects
               <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </a>
             <a 
               href="#contact" 
-              className="w-full sm:w-auto justify-center px-8 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition-all flex items-center gap-2"
+              className="w-full sm:w-auto justify-center px-6 py-3.5 rounded-xl bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:bg-white/10 transition-all flex items-center gap-2"
             >
               Contact Me
             </a>

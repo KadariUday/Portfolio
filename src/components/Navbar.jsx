@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Code2 } from 'lucide-react';
+import { Menu, X, Code2, Rocket } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Navbar = () => {
@@ -16,6 +16,7 @@ const Navbar = () => {
 
   const navLinks = [
     { name: 'About', href: '#about' },
+    { name: 'Vision Verse', href: '#vision-verse', highlight: true },
     { name: 'Skills', href: '#skills' },
     { name: 'Projects', href: '#projects' },
     { name: 'Contact', href: '#contact' },
@@ -24,7 +25,7 @@ const Navbar = () => {
   return (
     <nav
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-surface/80 backdrop-blur-md shadow-lg shadow-primary/5 py-4' : 'bg-transparent py-6'
+        isScrolled ? 'bg-surface/90 backdrop-blur-md shadow-lg shadow-primary/5 py-4' : 'bg-transparent py-6'
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
@@ -36,14 +37,19 @@ const Navbar = () => {
         </a>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-7">
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
-              className="text-sm font-medium text-gray-300 hover:text-white hover:text-gradient transition-all duration-300"
+              className={`text-sm font-medium transition-all duration-300 flex items-center gap-1.5 ${
+                link.highlight 
+                  ? 'text-pink-300 hover:text-white px-3 py-1 rounded-full bg-pink-500/10 border border-pink-500/30 hover:bg-pink-500/20' 
+                  : 'text-gray-300 hover:text-white hover:text-gradient'
+              }`}
             >
-              {link.name}
+              {link.highlight && <Rocket className="w-3.5 h-3.5 text-pink-400" />}
+              <span>{link.name}</span>
             </a>
           ))}
           <a
@@ -77,8 +83,11 @@ const Navbar = () => {
                 key={link.name}
                 href={link.href}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="text-gray-300 hover:text-primary transition-colors text-lg font-medium"
+                className={`transition-colors text-lg font-medium flex items-center gap-2 ${
+                  link.highlight ? 'text-pink-400 font-bold' : 'text-gray-300 hover:text-primary'
+                }`}
                >
+                 {link.highlight && <Rocket className="w-4 h-4" />}
                  {link.name}
                </a>
             ))}
