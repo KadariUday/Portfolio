@@ -1,208 +1,216 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import { ChevronRight, Volume2, VolumeX, Rocket } from 'lucide-react';
+import React from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { 
+  ChevronRight, 
+  Rocket, 
+  Sparkles, 
+  Code2, 
+  Brain, 
+  ArrowUpRight, 
+  Layers, 
+  ShieldCheck, 
+  Briefcase,
+  Terminal
+} from 'lucide-react';
 import heroImg from '../assets/profile.jpg';
 
-const Hero = ({ hasEntered }) => {
+const Hero = () => {
   const { scrollY } = useScroll();
-  const y1 = useTransform(scrollY, [0, 1000], [0, 200]);
-  const opacity = useTransform(scrollY, [0, 500], [1, 0]);
+  const y1 = useTransform(scrollY, [0, 800], [0, 100]);
+  const opacity = useTransform(scrollY, [0, 400], [1, 0]);
 
-  const audioRef = useRef(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-
-  useEffect(() => {
-    if (hasEntered && audioRef.current && !isPlaying) {
-      audioRef.current.play().then(() => {
-        setIsPlaying(true);
-      }).catch((e) => console.log("Audio play failed:", e));
-    }
-  }, [hasEntered]);
-
-  const toggleAudio = () => {
-    // User requested only a manual OFF option
-    if (audioRef.current && isPlaying) {
-      audioRef.current.pause();
-      setIsPlaying(false);
-    }
-  };
+  const stats = [
+    { value: "10+", label: "Live & AI Projects" },
+    { value: "Founder", label: "Vision Verse 24" },
+    { value: "Full-Stack", label: "React • Node • Python" },
+    { value: "Active", label: "Student Mentorship" }
+  ];
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-24 pb-12 lg:py-0 overflow-hidden" id="home">
-      {/* Cinematic Video Background */}
-      <div className="absolute inset-0 z-0 bg-background overflow-hidden">
-        <video 
-          autoPlay 
-          loop 
-          muted 
-          playsInline
-          onEnded={(e) => { e.target.play().catch(()=>{}); }}
-          className="absolute inset-0 w-full h-full object-cover opacity-20"
-        >
-          <source src="/hero-bg.mp4" type="video/mp4" />
-        </video>
-        {/* Ambient glow behind everything */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/20 via-background/60 to-background"></div>
-        {/* Fallback gradient if video is missing */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background/50 to-secondary/10"></div>
-        {/* Animated Gradient Overlays for extra depth */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full mix-blend-screen filter blur-[120px] animate-blob"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/20 rounded-full mix-blend-screen filter blur-[120px] animate-blob animation-delay-2000"></div>
+    <section 
+      className="relative min-h-[92vh] lg:min-h-screen flex items-center justify-center pt-28 pb-16 lg:py-0 overflow-hidden" 
+      id="home"
+    >
+      {/* High-End Tech Grid & Ambient Glow Background */}
+      <div className="absolute inset-0 z-0 bg-[#05070c] overflow-hidden pointer-events-none">
+        {/* Subtle Tech Grid */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_20%,#000_60%,transparent_100%)]"></div>
+        
+        {/* Luxury Ambient Radial Glows */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-gradient-to-r from-primary/15 via-secondary/15 to-pink-500/10 rounded-full filter blur-[140px] opacity-70"></div>
+        <div className="absolute -top-24 right-10 w-96 h-96 bg-primary/10 rounded-full filter blur-[120px] pointer-events-none"></div>
+        <div className="absolute bottom-10 left-10 w-96 h-96 bg-secondary/10 rounded-full filter blur-[120px] pointer-events-none"></div>
       </div>
 
       <motion.div 
         style={{ y: y1, opacity }}
-        className="relative z-10 w-full max-w-7xl mx-auto px-6 grid lg:grid-cols-[40%_60%] gap-8 lg:gap-12 items-center"
+        className="relative z-10 w-full max-w-7xl mx-auto px-6 grid lg:grid-cols-[58%_42%] gap-12 lg:gap-16 items-center"
       >
+        {/* Left Column: Text Content & Actions */}
         <motion.div 
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-          className="space-y-8"
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="space-y-8 text-left"
         >
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="flex flex-wrap items-center gap-3"
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm text-sm font-mono text-gray-200">
-              <span className="text-[#A855F7] font-bold">{`>_`}</span>
-              <span>Hello, World!</span>
+          {/* Status Badges */}
+          <div className="flex flex-wrap items-center gap-3">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 backdrop-blur-md text-xs font-mono text-emerald-300 shadow-[0_0_15px_rgba(16,185,129,0.15)]">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span>Available for Projects & Roles</span>
             </div>
 
             <a 
               href="#vision-verse"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-secondary/40 bg-secondary/10 hover:bg-secondary/20 transition-all backdrop-blur-sm text-sm font-mono text-gray-200 group shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:scale-105"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-pink-500/30 bg-pink-500/10 hover:bg-pink-500/20 transition-all backdrop-blur-md text-xs font-mono text-pink-300 group shadow-[0_0_15px_rgba(236,72,153,0.15)]"
             >
-              <Rocket className="w-4 h-4 text-secondary group-hover:-translate-y-0.5 transition-transform" />
-              <span>Founder @ <strong className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Vision Verse 24</strong></span>
+              <Rocket className="w-3.5 h-3.5 text-pink-400 group-hover:-translate-y-0.5 transition-transform" />
+              <span>Founder &bull; <strong className="text-white">Vision Verse 24</strong></span>
             </a>
-          </motion.div>
-          
-          <h1 className="text-3xl sm:text-5xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tighter leading-[1.1]">
-            <span className="block text-white mb-2">Hi, I'm</span>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#A855F7] via-[#3B82F6] to-[#2DD4BF] drop-shadow-lg">
-              Kadari Uday
-            </span>
-          </h1>
-          
-          <div className="flex flex-col space-y-4 pt-2">
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-medium text-gray-300 tracking-wide flex items-center gap-2 flex-wrap">
-              <span>Founder @ Vision Verse 24</span>
-              <span className="text-primary">•</span>
-              <span>B.Tech Engineering Student</span>
-              <span className="animate-pulse opacity-50">_</span>
-            </h2>
-            <p className="text-gray-400 text-lg max-w-xl leading-relaxed">
-              Bridging the gap between full-stack web engineering, smart AI integrations, and student project mentorship to build intelligent digital solutions.
-            </p>
           </div>
           
-          <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-4 pt-6 w-full sm:w-auto">
-            <a 
-              href="#vision-verse" 
-              className="w-full sm:w-auto justify-center px-8 py-3.5 rounded-xl bg-gradient-to-r from-[#8B5CF6] via-[#A855F7] to-[#00f0ff] text-white font-medium hover:opacity-90 transition-all flex items-center gap-2 group shadow-[0_0_25px_rgba(139,92,246,0.4)] hover:shadow-[0_0_35px_rgba(0,240,255,0.6)]"
-            >
-              <Rocket className="w-5 h-5 group-hover:rotate-12 transition-transform" />
-              Explore Vision Verse
-            </a>
+          {/* Main Headline */}
+          <div className="space-y-3">
+            <p className="text-sm md:text-base font-mono text-gray-400 tracking-wider uppercase">
+              Full-Stack Software Engineer & AI Innovator
+            </p>
+            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-[5.2rem] font-extrabold tracking-tight leading-[1.08] text-white">
+              Kadari <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-[#60a5fa] to-secondary">Uday</span>
+            </h1>
+          </div>
+          
+          {/* Professional Narrative */}
+          <p className="text-gray-300 text-base md:text-lg max-w-2xl leading-relaxed">
+            I engineer high-performance web applications, modern full-stack systems, and practical AI integrations. 
+            As the <strong className="text-white">Founder of Vision Verse 24</strong>, I deliver tailored digital platforms, mentor engineering peers, and turn complex ideas into production-ready software.
+          </p>
+          
+          {/* Action CTAs */}
+          <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-4 pt-2">
             <a 
               href="#projects" 
-              className="w-full sm:w-auto justify-center px-8 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition-all flex items-center gap-2 group"
+              className="px-8 py-3.5 rounded-xl bg-gradient-to-r from-primary via-secondary to-pink-500 text-white font-semibold hover:opacity-95 transition-all flex items-center justify-center gap-2 group shadow-[0_0_25px_rgba(0,240,255,0.3)] hover:shadow-[0_0_35px_rgba(139,92,246,0.5)] cursor-pointer"
             >
-              View Projects
-              <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <span>Explore Projects</span>
+              <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </a>
+            
             <a 
               href="#contact" 
-              className="w-full sm:w-auto justify-center px-6 py-3.5 rounded-xl bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:bg-white/10 transition-all flex items-center gap-2"
+              className="px-7 py-3.5 rounded-xl bg-white/5 border border-white/10 hover:border-primary/50 text-white font-medium hover:bg-primary/10 transition-all flex items-center justify-center gap-2 group backdrop-blur-md cursor-pointer"
             >
-              Contact Me
+              <span>Contact Me</span>
+              <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform text-primary" />
             </a>
+
+            <a 
+              href="#vision-verse" 
+              className="px-6 py-3.5 rounded-xl bg-pink-500/10 border border-pink-500/25 hover:border-pink-500/50 text-pink-300 hover:text-white hover:bg-pink-500/20 transition-all flex items-center justify-center gap-2 text-sm font-medium"
+            >
+              <Rocket className="w-4 h-4 text-pink-400" />
+              <span>Vision Verse 24</span>
+            </a>
+          </div>
+
+          {/* Key Metrics / Highlights Bar */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 border-t border-white/10">
+            {stats.map((item, idx) => (
+              <div key={idx} className="space-y-1">
+                <div className="text-xl sm:text-2xl font-bold font-mono text-white flex items-center gap-1.5">
+                  <span className="text-primary">{item.value}</span>
+                </div>
+                <div className="text-xs text-gray-400 font-mono leading-tight">
+                  {item.label}
+                </div>
+              </div>
+            ))}
           </div>
         </motion.div>
 
-        {/* Profile Image Presentation on Right Side */}
-        <div className="relative h-[250px] sm:h-[400px] lg:h-[600px] w-full flex items-center justify-center lg:justify-end mt-8 lg:mt-0">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-48 h-48 sm:w-64 sm:h-64 lg:w-72 lg:h-72 xl:w-80 xl:h-80 flex items-center justify-center group lg:translate-x-12 xl:translate-x-20"
-          >
-            <audio 
-              ref={audioRef} 
-              src="/bg-music.mp3" 
-              autoPlay 
-              loop 
-              onEnded={(e) => { e.target.play().catch(()=>{}); }}
-            />
-            
-            {/* Outer dashed ring (purple/secondary theme) */}
-            <div className={`absolute inset-[-35%] rounded-full border-[2px] border-dashed transition-all duration-500 ${isPlaying ? 'animate-[spin_10s_linear_infinite] scale-110 border-secondary/80 shadow-[0_0_40px_rgba(139,92,246,0.4)]' : 'border-secondary/30 animate-[spin_20s_linear_infinite]'}`}></div>
-            
-            {/* Middle dotted ring (cyan/primary theme) */}
-            <div className={`absolute inset-[-20%] rounded-full border-[2px] border-dotted transition-all duration-500 ${isPlaying ? 'animate-[spin_8s_linear_infinite_reverse] scale-110 border-primary shadow-[0_0_30px_rgba(0,240,255,0.5)]' : 'border-primary/50 animate-[spin_15s_linear_infinite_reverse]'}`}></div>
-            
-            {/* Inner solid ring with glow */}
-            <div className={`absolute inset-[-5%] rounded-full border transition-all duration-500 ${isPlaying ? 'border-primary shadow-[0_0_60px_rgba(0,240,255,0.8)] scale-110 animate-pulse' : 'border-primary/40 shadow-[0_0_30px_rgba(0,240,255,0.3)]'}`}></div>
+        {/* Right Column: Professional Portrait Frame with Live Tech Badges */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className="relative flex items-center justify-center lg:justify-end"
+        >
+          {/* Subtle Ambient Back Glow */}
+          <div className="absolute inset-0 max-w-sm mx-auto bg-gradient-to-tr from-primary/20 via-secondary/20 to-pink-500/20 rounded-3xl filter blur-3xl opacity-60 pointer-events-none"></div>
 
-            {/* Extra Audio Pulsing Rings (Only visible when playing) */}
-            {isPlaying && (
-              <>
-                <div className="absolute inset-[-40%] rounded-full border border-primary/30 animate-ping pointer-events-none" style={{ animationDuration: '2s' }}></div>
-                <div className="absolute inset-[-50%] rounded-full border border-secondary/30 animate-ping pointer-events-none" style={{ animationDuration: '3s', animationDelay: '1s' }}></div>
-              </>
-            )}
-
-            {/* Profile Image Container */}
-            <div className="relative w-full h-full rounded-full overflow-hidden bg-white z-10 border-2 border-background shadow-2xl">
+          {/* Profile Card Container */}
+          <div className="relative w-72 sm:w-80 lg:w-[22rem] p-3 rounded-3xl bg-surface/80 border border-white/10 backdrop-blur-2xl shadow-2xl shadow-primary/10 group">
+            
+            {/* Image Container with Border Glow */}
+            <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden bg-neutral-900 border border-white/10">
               <img 
                 src={heroImg} 
                 alt="Kadari Uday" 
-                className={`absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 ${isPlaying ? 'scale-110' : 'group-hover:scale-105'}`}
+                className="w-full h-full object-cover object-top filter brightness-[1.02] contrast-[1.05] group-hover:scale-105 transition-transform duration-700"
               />
+              {/* Subtle bottom gradient shade */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+
+              {/* In-Frame Status Tag */}
+              <div className="absolute bottom-4 left-4 right-4 p-3 rounded-xl bg-black/60 border border-white/10 backdrop-blur-md">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="text-sm font-bold text-white">Kadari Uday</h3>
+                    <p className="text-[11px] text-gray-300 font-mono">B.Tech Engineering &bull; Founder</p>
+                  </div>
+                  <div className="w-8 h-8 rounded-lg bg-primary/20 border border-primary/40 flex items-center justify-center text-primary">
+                    <Code2 className="w-4 h-4" />
+                  </div>
+                </div>
+              </div>
             </div>
-          </motion.div>
-        </div>
+
+            {/* Floating Live Badge Top-Left */}
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.5, duration: 0.6 }}
+              className="absolute -top-4 -left-4 sm:-left-6 px-3.5 py-2 rounded-2xl bg-[#0e121a]/95 border border-primary/40 backdrop-blur-xl shadow-xl flex items-center gap-2 text-xs font-mono text-white"
+            >
+              <Brain className="w-4 h-4 text-primary" />
+              <span>AI Integration</span>
+            </motion.div>
+
+            {/* Floating Live Badge Bottom-Right */}
+            <motion.div 
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.7, duration: 0.6 }}
+              className="absolute -bottom-4 -right-4 sm:-right-6 px-3.5 py-2 rounded-2xl bg-[#0e121a]/95 border border-pink-500/40 backdrop-blur-xl shadow-xl flex items-center gap-2 text-xs font-mono text-white"
+            >
+              <Rocket className="w-4 h-4 text-pink-400" />
+              <span>Vision Verse 24</span>
+            </motion.div>
+
+          </div>
+        </motion.div>
 
       </motion.div>
 
-      {/* Scroll Down Indicator */}
+      {/* Professional Minimal Scroll Down Indicator */}
       <motion.div 
-        initial={{ opacity: 0, y: -15 }}
+        initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.2, duration: 0.8 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center gap-3 cursor-pointer group animate-bounce"
+        transition={{ delay: 1, duration: 0.8 }}
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 cursor-pointer group"
         onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
       >
-        <div className="text-xs font-mono text-gray-200 tracking-[0.3em] uppercase group-hover:text-primary transition-colors drop-shadow-md">Scroll</div>
-        <div className="w-8 h-14 rounded-full border-2 border-white/40 flex justify-center p-2 group-hover:border-primary transition-all bg-background/40 backdrop-blur-md shadow-[0_0_15px_rgba(255,255,255,0.1)] group-hover:shadow-[0_0_20px_rgba(0,240,255,0.4)]">
+        <span className="text-[11px] font-mono text-gray-400 uppercase tracking-widest group-hover:text-primary transition-colors">
+          Explore
+        </span>
+        <div className="w-5 h-9 rounded-full border border-white/20 flex justify-center p-1 group-hover:border-primary transition-colors bg-white/5 backdrop-blur-sm">
           <motion.div 
-            animate={{ y: [0, 16, 0], opacity: [1, 0.3, 1] }}
-            transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-            className="w-1.5 h-3 bg-primary rounded-full shadow-[0_0_8px_rgba(0,240,255,0.8)]"
+            animate={{ y: [0, 10, 0], opacity: [1, 0.3, 1] }}
+            transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
+            className="w-1 h-2 bg-primary rounded-full shadow-[0_0_6px_rgba(0,240,255,0.8)]"
           />
         </div>
       </motion.div>
 
-      {/* Audio Mute Button (Only visible while playing) */}
-      <AnimatePresence>
-        {isPlaying && (
-          <motion.button
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
-            onClick={toggleAudio}
-            className="absolute bottom-8 right-8 z-50 p-3 rounded-full hover:bg-white/10 border border-white/10 bg-white/5 backdrop-blur-md transition-all flex items-center justify-center hover:scale-110 shadow-lg group"
-            title="Mute Audio"
-          >
-            <Volume2 className="w-6 h-6 text-[#A855F7] group-hover:hidden" />
-            <VolumeX className="w-6 h-6 text-gray-400 hidden group-hover:block" />
-          </motion.button>
-        )}
-      </AnimatePresence>
     </section>
   );
 };
