@@ -90,6 +90,7 @@ Ensure you have Node.js installed on your machine.
 
 I'm always open to discussing full-stack development, AI integrations, or new opportunities!
 
+- **Email:** [kadariudaycl@gmail.com](mailto:kadariudaycl@gmail.com)
 - **GitHub:** [KadariUday](https://github.com/KadariUday)
 - **LinkedIn:** [kadariuday](https://www.linkedin.com/in/kadariuday)
 

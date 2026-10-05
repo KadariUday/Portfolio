@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaGithub, FaLinkedin, FaInstagram, FaYoutube } from 'react-icons/fa';
-import { Rocket } from 'lucide-react';
+import { Rocket, Mail } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -17,6 +17,13 @@ const Footer = () => {
         </div>
 
         <div className="flex items-center gap-4">
+          <a
+            href="mailto:kadariudaycl@gmail.com"
+            className="w-9 h-9 rounded-full bg-white/5 border border-white/10 hover:border-primary/50 hover:bg-primary/10 text-gray-400 hover:text-primary transition-all flex items-center justify-center text-sm"
+            title="Email: kadariudaycl@gmail.com"
+          >
+            <Mail className="w-4 h-4" />
+          </a>
           <a
             href="https://www.instagram.com/vision_verse24/"
             target="_blank"
